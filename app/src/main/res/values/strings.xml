@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Habit Tracker</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_insert_dummy_data">Insert Dummy Data</string>
+    <string name="action_delete_all_entries">Delete All Restaurants</string>
+    <string name="not_good">Not Good</string>
+    <string name="good">Good</string>
+    <string name="execellent">Execellent</string>
+    <string name="category_overview">Overview</string>
+    <string name="hint_restaurant_name">Name of restaurant</string>
+    <string name="hint_type_of_food">Type of food</string>
+    <string name="category_rate">Rate</string>
+    <string name="category_cost">Cost</string>
+    <string name="hint_cost_of_dinner">Cost</string>
+    <string name="unit_dollars">U$S</string>
+    <string name="editor_activity_title_new_restaurant">Add a Restaurant</string>
+</resources>

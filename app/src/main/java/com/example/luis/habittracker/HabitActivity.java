@@ -41,13 +41,13 @@ public class HabitActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        displayDatabaseInfo();
+        queryAllHabits();
     }
     /**
      * Temporary helper method to display information in the onscreen TextView
      * about the state of the exercise database.
      */
-    private void displayDatabaseInfo(){
+    public Cursor queryAllHabits(){
         //Create and/ or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -62,6 +62,7 @@ public class HabitActivity extends AppCompatActivity {
         };
         Cursor cursor = db.query(DayEntry.TABLE_NAME,projection,
                 null,null,null,null,null);
+
 
         // Find the TextView to display the data of the database
         TextView displayView = (TextView) findViewById(R.id.text_habit);
@@ -104,11 +105,6 @@ public class HabitActivity extends AppCompatActivity {
             // resources and makes it invalid.
             cursor.close();
         }
-    }
-
-    private void insertRestaurant(){
-        // Gets the database in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
+        return cursor;
     }
 }

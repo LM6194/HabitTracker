@@ -13,6 +13,7 @@ import com.example.luis.habittracker.data.HabitContract.DayEntry;
 import com.example.luis.habittracker.data.HabitDbHelper;
 
 public class HabitActivity extends AppCompatActivity {
+    private static final String LOG_TAG = HabitDbHelper.class.getSimpleName();
     /** Database helper that will provide us access to the database*/
     private HabitDbHelper mDbHelper;
 
@@ -41,7 +42,7 @@ public class HabitActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        queryAllHabits();
+        displayCursor();
     }
     /**
      * Temporary helper method to display information in the onscreen TextView
@@ -62,8 +63,15 @@ public class HabitActivity extends AppCompatActivity {
         };
         Cursor cursor = db.query(DayEntry.TABLE_NAME,projection,
                 null,null,null,null,null);
+        return cursor;
+    }
 
+    /**
+     * Display information in the cursor
+     */
+    public void displayCursor(){
 
+        Cursor dispCursor = queryAllHabits();
         // Find the TextView to display the data of the database
         TextView displayView = (TextView) findViewById(R.id.text_habit);
 
@@ -75,27 +83,27 @@ public class HabitActivity extends AppCompatActivity {
             //
             //In the while loop below, iterate through the rows of the cursor
             //and display the information from each column in this order.
-            displayView.setText("The dining out table contains " + cursor.getCount() + " days.\n\n");
+            displayView.setText("The dining out table contains " + dispCursor.getCount() + " days.\n\n");
             displayView.append(DayEntry._ID + " - " + DayEntry.COLUMN_RESTAURANT + " - "
             + DayEntry.COLUMN_TYPE + " - " + DayEntry.COLUMN_COST + " - " + DayEntry.COLUMN_RATING +"\n");
 
             // figure out the index of each column
-            int idColumnIndex = cursor.getColumnIndex(DayEntry._ID);
-            int restaurantColumnIndex = cursor.getColumnIndex(DayEntry.COLUMN_RESTAURANT);
-            int typeColumnIndex = cursor.getColumnIndex(DayEntry.COLUMN_TYPE);
-            int costColumnIndex = cursor.getColumnIndex(DayEntry.COLUMN_COST);
-            int ratingColumnIndex = cursor.getColumnIndex(DayEntry.COLUMN_RATING);
+            int idColumnIndex = dispCursor.getColumnIndex(DayEntry._ID);
+            int restaurantColumnIndex = dispCursor.getColumnIndex(DayEntry.COLUMN_RESTAURANT);
+            int typeColumnIndex = dispCursor.getColumnIndex(DayEntry.COLUMN_TYPE);
+            int costColumnIndex = dispCursor.getColumnIndex(DayEntry.COLUMN_COST);
+            int ratingColumnIndex = dispCursor.getColumnIndex(DayEntry.COLUMN_RATING);
 
-            //Iterate through all the returned rows in the cursor
-            while (cursor.moveToNext()){
+            //Iterate through all the returned rows in the dispCursor
+            while (dispCursor.moveToNext()){
                 // use that index to extract the String or Int value of the word
-                // at the current row the cursor is on.
-                int currentID = cursor.getInt(idColumnIndex);
-                String currentRestaurant = cursor.getString(restaurantColumnIndex);
-                String currentFoodType = cursor.getString(typeColumnIndex);
-                int currentCost = cursor.getInt(costColumnIndex);
-                int currentRating = cursor.getInt(ratingColumnIndex);
-                //Display the values from each column of the current row in the cursor
+                // at the current row the dispCursor is on.
+                int currentID = dispCursor.getInt(idColumnIndex);
+                String currentRestaurant = dispCursor.getString(restaurantColumnIndex);
+                String currentFoodType = dispCursor.getString(typeColumnIndex);
+                int currentCost = dispCursor.getInt(costColumnIndex);
+                int currentRating = dispCursor.getInt(ratingColumnIndex);
+                //Display the values from each column of the current row in the dispCursor
                 // in the TextView
                 displayView.append("\n" + currentID + " - " + currentRestaurant + " - " +
                 currentFoodType + " - " + currentCost + " - " + currentRating);
@@ -103,8 +111,8 @@ public class HabitActivity extends AppCompatActivity {
         }finally {
             // Always close the cursor when you're done reading from it. This releases all its
             // resources and makes it invalid.
-            cursor.close();
+            dispCursor.close();
         }
-        return cursor;
+
     }
 }

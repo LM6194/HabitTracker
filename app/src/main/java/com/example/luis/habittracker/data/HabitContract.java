@@ -21,9 +21,9 @@ public final class HabitContract {
         public static final String TABLE_NAME = "dining";
 
         public static final String _ID = BaseColumns._ID;
-        public static final String COLUMN_RESTAURANT = "restaurant_name";
-        public static final String COLUMN_TYPE = "type_of_food";
-        public static final String COLUMN_COST = "cost_of_dinner";
+        public static final String COLUMN_RESTAURANT = "restaurant";
+        public static final String COLUMN_TYPE = "food";
+        public static final String COLUMN_COST = "cost";
         public static final String COLUMN_RATING = "rating";
 
         /**
